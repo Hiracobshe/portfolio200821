@@ -1,0 +1,43 @@
+.container_header {
+  background-color: orange;
+  display: flex;
+  list-style: none;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.container_header_logo {
+  flex: 5;
+}
+
+.container_header_message {
+  flex: 17;
+  text-align: right;
+  padding-top: 30px; 
+  padding-right: 20px;
+  color: #000;
+}
+
+.container_header_cart {
+  flex: 5;
+  text-align: center;
+  padding-top: 24px;
+  
+}
+
+.container_header_cart img{
+  width:  25%;
+  height: 44%;
+
+}
+
+.container_header_logout {
+  flex: 5;
+  padding-top: 30px;
+}
+
+.container_footer {
+  text-align: center;
+  font-size: 75%;
+}

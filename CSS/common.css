@@ -1,0 +1,45 @@
+body {
+  font-family: 游明朝,"Yu Mincho",YuMincho,"Hiragino Mincho ProN","Hiragino Mincho Pro",HGS明朝E,メイリオ,Meiryo,serif;
+  background-color: #381515;
+  color: #fff;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.link {
+  text-align: center;
+}
+
+.link a {
+  color: orange;
+}
+
+.ok_msg {
+  background-color: aqua;
+  color: #000;
+}
+
+.err_msg {
+  background-color: pink;
+  color: #000;
+}
+
+.title {
+  font-size: 150%;
+  margin-bottom: 10px;
+}

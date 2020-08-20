@@ -1,0 +1,23 @@
+.container_header {
+  text-align: center;
+  display: flex;
+}
+
+.container_header_left {
+  flex: 5;
+}
+
+.container_header_right {
+  flex: 27;
+}
+
+.container_main {
+  text-align: center;
+}
+
+.container_footer {
+
+  text-align: center;
+  font-size: 75%;
+  margin-top: 10px;
+}

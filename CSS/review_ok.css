@@ -1,0 +1,10 @@
+@import url("./common.css");
+@import url("./common_user.css");
+
+.container_main {
+  margin-top: 16px;
+}
+
+.container_main_bottom {
+  margin-top: 16px;
+}

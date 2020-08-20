@@ -1,0 +1,40 @@
+@import url("./common.css");
+@import url("./common_user.css");
+
+.container_main {
+  margin-top: 16px;
+}
+
+.container_main_detail {
+  display: flex;
+  justify-content: center;
+}
+
+.container_main_left {
+  flex: 2;
+}
+
+.container_main_review {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.container_main_right {
+  flex: 3;
+}
+
+.l_space2 {
+  padding-right: 50px;
+}
+
+.r_row1,
+.r_row2,
+.r_row3,
+.r_row4 {
+  margin-top: 10px;
+}
+
+.r_row5 {
+  margin-top: 20px;
+}

@@ -1,0 +1,7 @@
+@import url("./common.css");
+@import url("./common_manage.css");
+
+table.page, th.page, td.page {
+  border: 0px none;
+  margin: 0 auto;
+}

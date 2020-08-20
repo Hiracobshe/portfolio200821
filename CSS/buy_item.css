@@ -1,0 +1,58 @@
+@import url("./common.css");
+@import url("./common_user.css");
+
+.container_main {
+  margin-top: 16px;
+}
+
+.container_main_middle ul,
+.r_row3 {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+.container_main_middle ul {
+  border: solid 2px #fff;
+  padding: 8px 0;
+}
+
+.container_main_left {
+  flex: 1;
+  text-align: center;
+}
+
+.container_main_left img {
+  width: 80%;
+}
+
+.container_main_right {
+  flex: 2;
+}
+
+.price,
+.number {
+  flex: 1;
+}
+
+.total {
+  margin-bottom: 16px;
+}
+
+.r_row1,
+.r_row4 {
+  margin-top: 16px;
+}
+
+.space2,
+.space3 {
+  padding-right: 16px;
+}
+
+.space4 {
+  padding-left: 50%;
+}
+
+.total {
+  padding-left: 67%;
+}

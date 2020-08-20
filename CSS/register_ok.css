@@ -1,0 +1,10 @@
+@import url("./common.css");
+@import url("./common_login.css");
+
+.err_msg {
+  margin-top: 10px;
+}
+
+.link {
+  margin-top: 10px;
+}

@@ -1,0 +1,37 @@
+@import url("./common.css");
+@import url("./common_login.css");
+
+.row1,
+.row2,
+.row3,
+.row4,
+.row5,
+.row6,
+.row7,
+.row8 {
+  display: flex;
+  justify-content: left;
+}
+
+.row9 {
+  margin-top: 10px;
+}
+
+.space1_1,
+.space5_1 {
+  padding-right: 80px;
+}
+
+.space2_1 {
+  padding-right: 64px;
+}
+
+.space4_1,
+.space8_1 {
+  padding-right: 32px;
+}
+
+.space6_1,
+.space7_1 {
+  padding-right: 112px;
+}
