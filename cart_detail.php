@@ -7,6 +7,10 @@
 
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $csrf_token = get_csrf_token();
   
     $csrf_token = get_csrf_token();
@@ -25,6 +29,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/cart_detail_view.php';
+  include_once VIEW_PATH . 'cart_detail_view.php';
 
 ?>

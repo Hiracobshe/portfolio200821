@@ -7,6 +7,10 @@
 
   session_start();
 
+  if((!is_logined()) || (get_session('user_id') !== 'admin')) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $dbh = db_connect();
 
   $user_id = get_session('user_id');
@@ -46,6 +50,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/manage_review_view.php';
+  include_once VIEW_PATH . 'manage_review_view.php';
 
 ?>

@@ -17,7 +17,7 @@
       return fetch_query($stmt);
       
     } catch (PDOException $e) {
-      $err_msg[] = $e->getMessage();
+      set_error($e->getMessage());
     }     
   }
 
@@ -36,7 +36,7 @@
       return fetch_query($stmt);
       
     } catch (Exception $e) {
-      $err_msg[] = $e->getMessage();
+      set_error($e->getMessage());
     }     
   }
 
@@ -55,7 +55,7 @@
     return fetch_query($stmt);
       
     } catch (Exception $e) {
-      $err_msg[] = $e->getMessage();
+      set_error($e->getMessage());
     }     
   }
 
@@ -73,7 +73,7 @@ function get_count_manage_user($dbh) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -102,7 +102,36 @@ function get_user_manage_user($dbh, $from_page, $num) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
+  }     
+}
+
+// ユーザ情報追加
+function insert_user_register_ok($dbh, $name, $hash, $mail, $number, $address, $sex, $birthdate, $date) {
+    
+  try {
+      
+    // SQL生成
+    $sql = 'INSERT INTO users (username, password, mail, post, address, sex, birthdate, createdate, updatedate)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    $stmt = db_prepare($dbh, $sql);
+  
+    $stmt->bindValue(1, $name, PDO::PARAM_STR);
+    $stmt->bindValue(2, $hash, PDO::PARAM_STR);
+    $stmt->bindValue(3, $mail, PDO::PARAM_STR);
+    $stmt->bindValue(4, $number, PDO::PARAM_STR);
+    $stmt->bindValue(5, $address, PDO::PARAM_STR);
+    $stmt->bindValue(6, $sex, PDO::PARAM_INT);
+    $stmt->bindValue(7, $birthdate, PDO::PARAM_STR);
+    $stmt->bindValue(8, $date, PDO::PARAM_STR);
+    $stmt->bindValue(9, $date, PDO::PARAM_STR);
+
+    //SQLの実行
+    return execute_query($stmt);      
+     
+  } catch (Exception $e) {
+    set_error($e->getMessage());
   }     
 }
 

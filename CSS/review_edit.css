@@ -1,51 +1,11 @@
 @import url("./common.css");
 @import url("./common_user.css");
 
-.container_main {
-    margin-top: 16px;
+table {
+  border: solid 2px #fff;
 }
 
-.container_main_middle {
-    display: flex;
-    border: solid 2px #fff;
-    padding: 8px 0;
-}
-
-.container_main_right {
-    padding-left: 16px;
-}
-
-.l_row1 {
-    text-align: center;
-}
-
-.l_row1 img {
-    width: 80%;
-}
-
-.r_row1,
-.r_row2,
-.r_row3,
-.b_row1,
-.b_row2,
-.b_row3 {
-    margin-top: 16px;
-}
-
-.container_main_bottom {
-    padding-left: 10%;
-    margin-top: 32px;
-}
-
-.b_row5 {
-    margin-top: 32px;
-}
-
-.space2,
-.space3 {
-    padding-right: 16px;
-}
-
-.b_space1 {
-    padding-right: 32px;
+.review {
+  padding-top: 2rem;
+  margin: 0 auto;
 }

@@ -10,26 +10,27 @@
   // DB接続
   $db = db_connect();
 
-  $name      = trim(get_post_data('name')     , " ");
-  $password1 = trim(get_post_data('password1'), " ");
-  $password2 = trim(get_post_data('password2'), " ");
-  $mail      = trim(get_post_data('mail')     , " ");
-  $number    = trim(get_post_data('number')   , " ");
-  $address   = trim(get_post_data('address')  , " ");
-  $sex       =      get_post_data('sex');
-  $year      =      get_post_data('birth_year');
-  $month     =      get_post_data('birth_month');
-  $day       =      get_post_data('birth_day');
+  $name      = trim(get_post('name')     , " ");
+  $password1 = trim(get_post('password1'), " ");
+  $password2 = trim(get_post('password2'), " ");
+  $mail      = trim(get_post('mail')     , " ");
+  $number    = trim(get_post('number')   , " ");
+  $address   = trim(get_post('address')  , " ");
+  $sex       =      get_post('sex');
+  $year      =      get_post('birth_year');
+  $month     =      get_post('birth_month');
+  $day       =      get_post('birth_day');
   
 
   // ユーザー名が6文字以上かどうかの確認
-  if((mb_strlen($name)) < 6) {
-    set_error('[エラー]ユーザー名は6文字以上で入力してください');
+  if(   ((mb_strlen($name)) < MIN_LENGTH_NAME)
+     || ((mb_strlen($name)) > MAX_LENGTH_NAME)) {
+    set_error('[エラー]：ユーザー名は' . MIN_LENGTH_NAME . '文字以上' . MAX_LENGTH_NAME . '文字以下で入力してください');
 
   } else {
     //正規表現
     if(!is_positive_name($name)) {
-      set_error('[エラー]：不正なユーザー名です(半角英数字6文字以上で入力してください)');
+      set_error('[エラー]：不正なユーザ名です(半角英数字で入力してください)');
     }
 
     $datas = get_username_register_ok($db, $name);
@@ -41,12 +42,16 @@
   }
   
   // パスワードが6文字以上かどうかの確認
-  if((mb_strlen($password1) < 6) || (mb_strlen($password2) < 6)) {
-    set_error('[エラー]パスワードは6文字以上で入力してください');
+  if(   (mb_strlen($password1) < MIN_LENGTH_PASSWORD) 
+     || (mb_strlen($password2) < MIN_LENGTH_PASSWORD) 
+     || (mb_strlen($password1) > MAX_LENGTH_PASSWORD) 
+     || (mb_strlen($password2) > MAX_LENGTH_PASSWORD)) {
+
+    set_error('[エラー]：パスワードは' . MIN_LENGTH_PASSWORD . '文字以上' . MAX_LENGTH_PASSWORD . '文字以下で入力してください');
   
   } else {
     if((!is_positive_password($password1)) || (!is_positive_password($password2))) {
-      set_error('[エラー]：不正なパスワードです(半角英数字6文字以上で入力してください)');
+      set_error('[エラー]：不正なパスワードです(半角英数字で入力してください)');
     }
   }
 
@@ -54,28 +59,18 @@
     set_error('[エラー]：パスワードが一致しません');
   }
 
-  if(mb_strlen($mail) === 0) {
-    set_error('[エラー]：メールアドレスを入力してください');
-    
-  } else {
-    if(!is_positive_address($mail)) {
-      set_error('[エラー]：不正なメールアドレスです');
-    }
-
-    $data2 = select_mail_register_ok($db, $mail);
-    
-    if(count($data2) > 0) {
-      set_error('[エラー]そのメールアドレスはすでに使用されています');            
-    }
+  if(!is_positive_address($mail)) {
+    set_error('[エラー]：不正なメールアドレスです');
   }
 
-  if(mb_strlen($number) === 0) {
-    set_error('[エラー]：郵便番号を入力してください');
+  $data2 = select_mail_register_ok($db, $mail);
+    
+  if(count($data2) > 0) {
+    set_error('[エラー]そのメールアドレスはすでに使用されています');            
+  }
 
-  } else {
-    if(!is_positive_number($number)) {
-      set_error('[エラー]：不正な郵便番号です(半角数字7桁で入力してください)');
-    }
+  if(!is_positive_number($number)) {
+    set_error('[エラー]：不正な郵便番号です(半角数字7桁で入力してください)');
   }
 
   if(mb_strlen($address) === 0) {
@@ -105,7 +100,7 @@
     $date = date('Y-m-d H:i:s');    
     insert_user_register_ok($db, $name, $hash, $mail, $number, $address, (int)$sex, $birthdate, $date); 
 
-    set_message('登録が完了しました．');
+    set_message('[OK]：登録が完了しました．');
 
   } else {
     
@@ -119,5 +114,4 @@
 
   // ファイル読込
   include_once VIEW_PATH . 'register_ok_view.php'
-
 ?>

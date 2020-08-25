@@ -5,8 +5,11 @@
   require_once MODEL_PATH . 'function.php';
   require_once MODEL_PATH . 'user.php';
 
-
   session_start();
+
+  if((!is_logined()) || (get_session('user_id') !== 'admin')) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
 
   $dbh = db_connect();
 
@@ -46,6 +49,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/manage_user_view.php';
+  include_once VIEW_PATH . 'manage_user_view.php';
 
 ?>

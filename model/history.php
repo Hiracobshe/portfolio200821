@@ -100,7 +100,7 @@ function get_count_manage_buy($dbh) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -126,7 +126,7 @@ function get_history_manage_buy($dbh, $from_page, $num) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 

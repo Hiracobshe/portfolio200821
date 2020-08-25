@@ -14,7 +14,7 @@ function get_items_area($dbh) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 }  
 

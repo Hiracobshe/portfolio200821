@@ -45,10 +45,12 @@ function get_recommend_items_list($dbh, $user_id) {
               WHERE items.status = 1
               AND   items.type = ?
               ORDER BY items.createdate DESC
-              LIMIT 3';
+              LIMIT ?';
 
       $stmt = db_prepare($dbh, $sql);
       $stmt->bindValue(1, $data6[0]['type'], PDO::PARAM_INT);    
+      $stmt->bindValue(2, MAX_ITEMS_PER_ROW, PDO::PARAM_INT);
+
       return fetch_query($stmt);
 
     } else {
@@ -69,21 +71,21 @@ function get_recommend_items_list($dbh, $user_id) {
               ON items.area = area.id
               WHERE items.status = 1
               ORDER BY items.createdate DESC
-              LIMIT 3';
+              LIMIT ?';
 
       $stmt = db_prepare($dbh, $sql);
-      $datas = db_execute($stmt, 'select');
-
-      return entity_assoc_array($datas);
+      $stmt->bindValue(1, MAX_ITEMS_PER_ROW, PDO::PARAM_INT);
+      
+      return fetch_query($stmt);
     }
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 }
 
 // 商品情報取得
-function get_itemlist_items_list($dbh) {
+function get_itemlist_items_list($dbh, $from_page = null, $num = null) {
   
   $check_type = get_post('check_type');
   $check_area = get_post('check_area');
@@ -108,7 +110,7 @@ function get_itemlist_items_list($dbh) {
             INNER JOIN area
             ON items.area = area.id
             WHERE items.status = 1';
-            
+    
     if($check_type !== 'default') {
       $sql .= ' AND type.id = ' . (int)$_POST['check_type'];
     }
@@ -139,17 +141,29 @@ function get_itemlist_items_list($dbh) {
     } else {
         $sql .= ' ORDER BY items.createdate DESC';
     }
+
+    if(   ($from_page !== null)
+       && ($num !== null)) {     
+    $sql .= ' limit ? offset ?';
     
+    }
+
     $stmt = db_prepare($dbh, $sql);
 
     if(mb_strlen($keyword) > 0) {
       $stmt->bindValue(1, "%" . $keyword . "%", PDO::PARAM_STR);
+      $stmt->bindValue(2, (int)$num, PDO::PARAM_INT);
+      $stmt->bindValue(3, (int)$from_page, PDO::PARAM_INT);
+  
+    } else {
+      $stmt->bindValue(1, $num, PDO::PARAM_INT);
+      $stmt->bindValue(2, $from_page, PDO::PARAM_INT);
     }
     
     return fetch_query($stmt);
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 }
 
@@ -175,7 +189,7 @@ function get_item_items_detail($dbh, $item_id) {
     return fetch_query($stmt);
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 }
 
@@ -194,7 +208,7 @@ function get_reviewpoint_items_detail($dbh, $item_id) {
     return fetch_query($stmt);
     
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 } 
 
@@ -220,7 +234,7 @@ function get_item_review_list($dbh, $item_id) {
       
     } catch (Exception $e) {
         
-      $err_msg[] = $e->getMessage();
+      set_error($e->getMessage());
     }     
   }
 
@@ -253,7 +267,7 @@ function get_item_review_edit($dbh, $user_id, $item_id, $createdate) {
     return fetch_query($stmt);
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }
 }
 
@@ -273,7 +287,7 @@ function update_item_review_ok($dbh, $item_id, $review_point) {
     return execute_query($stmt);      
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -294,7 +308,7 @@ function update_items_buy_item($dbh, $stock, $item_id) {
     return execute_query($stmt);         
  
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   } 
 }
 
@@ -314,7 +328,7 @@ function get_count_manage_items($dbh) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -344,7 +358,7 @@ function get_item_manage_items($dbh, $from_page, $num) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -373,7 +387,7 @@ function insert_item_manage_items($dbh, $name, $price, $image, $status, $stock, 
     return execute_query($stmt);      
         
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -386,12 +400,14 @@ function delete_item_manage_items($dbh, $item_id) {
             FROM    items
             WHERE   id = ?';
 
+    $stmt = db_prepare($dbh, $sql);
+
     $stmt->bindValue(1, $item_id, PDO::PARAM_INT);
 
     return execute_query($stmt);      
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -414,7 +430,7 @@ function update_comment_manage_items($dbh, $update_comment, $date, $id) {
     return execute_query($stmt);      
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -443,7 +459,7 @@ function update_status_manage_items($dbh, $update_status, $date, $id) {
     return execute_query($stmt);
   
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   } 
 }
 
@@ -466,9 +482,50 @@ function update_stock_manage_items($dbh, $update_stock, $date, $id) {
     return execute_query($stmt);      
      
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
+// 商品数取得
+function get_count_items_list($dbh) {
+
+  try {
+      
+    $sql = 'SELECT COUNT(*)
+            FROM   items
+            WHERE status = 1
+           ';
+
+    $stmt = db_prepare($dbh, $sql);
+  
+    return fetch_query($stmt);      
+    
+  } catch (Exception $e) {
+    set_error($e->getMessage());
+  }  
+}
+
+
+// 公開ステータス取得
+function get_status_buy_item($dbh, $item_id) {
+
+  try {
+      
+    $sql = 'SELECT status
+            FROM   items
+            WHERE id = ?
+           ';
+
+    $stmt = db_prepare($dbh, $sql);
+    $stmt->bindValue(1, $item_id, PDO::PARAM_INT);
+    
+    return fetch_query($stmt);      
+    
+  } catch (Exception $e) {
+    set_error($e->getMessage());
+  }  
+  
+  
+}
 
 ?>
