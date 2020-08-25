@@ -1,20 +1,14 @@
 @import url("./common.css");
 @import url("./common_login.css");
 
-.row1, .row2 {
-  display: flex;
-  justify-content: center;
+.form-signin {
+  max-width: 400px;
+  padding: 15px;
+  margin: auto;
 }
 
-.space1 {
-  padding-right: 16px;
-}
-
-.row3 {
-    padding-right: 35px;
-    margin-top: 5px;
-}
-
-.row4 {
-    margin-top: 10px;
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

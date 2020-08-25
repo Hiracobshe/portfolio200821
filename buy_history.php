@@ -7,6 +7,10 @@
 
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $dbh = db_connect();
 
   $user_id = get_session('user_id');
@@ -19,6 +23,5 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/buy_history_view.php';
-
+  include_once VIEW_PATH . 'buy_history_view.php';
 ?>

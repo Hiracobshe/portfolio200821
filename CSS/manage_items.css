@@ -1,59 +1,19 @@
 @import url("./common.css");
 @import url("./common_manage.css");
 
-.container_main_middle {
-  margin-top: 16px;
-  border: solid 2px #fff;
-  width: 40%;
-  padding-top: 10px;
-  padding-left: 16px;
+.table img {
+  width: 75%;
 }
 
-.container_main_bottom img {
-  width: 80%;
+.insert_item {
+  width: 400px;
+  text-align: left;
 }
 
-.container_main_bottom td {
-  padding: 8px 0;
+.button {
+  margin-top: 2rem;
 }
 
-.m_space1 {
-  padding-right: 32px;
-}
-
-.m_space2,
-.m_space3,
-.m_space4,
-.m_space5,
-.m_space7 {
-  padding-right: 48px;
-}
-
-.m_space8 {
-  padding-right: 16px;
-}
-
-.m_row1,
-.m_row2,
-.m_row3,
-.m_row4,
-.m_row5,
-.m_row6,
-.m_row7,
-.m_row8 {
-  padding-top: 10px;
-}
-
-.m_row9 {
-  text-align: center;
-  padding-top: 20px;
-}
-
-.table {
-  padding-top: 32px;
-}
-
-table.page, th.page, td.page {
-  border: 0px none;
-  margin: 0 auto;
+h6 {
+  margin-top: 1rem;
 }

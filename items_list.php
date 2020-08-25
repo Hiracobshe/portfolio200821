@@ -9,6 +9,10 @@
 
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $csrf_token = get_csrf_token();
 
   $dbh = db_connect();
@@ -23,6 +27,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/items_list_view.php';
+  include_once VIEW_PATH . 'items_list_view.php';
 
 ?>

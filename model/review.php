@@ -141,7 +141,7 @@ function get_count_manage_review($dbh) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 
@@ -167,7 +167,7 @@ function get_review_manage_review($dbh, $from_page, $num) {
     return fetch_query($stmt);
       
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   }     
 }
 

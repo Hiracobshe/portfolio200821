@@ -7,6 +7,10 @@
 
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $token = get_post('csrf_token');
 
   if(is_valid_csrf_token($token)) {
@@ -66,5 +70,6 @@
   }
 
   // ファイル読込
-  include_once './view/cart_detail_view.php';
+  include_once VIEW_PATH . 'cart_detail_view.php';
+
 ?>

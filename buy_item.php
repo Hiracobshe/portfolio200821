@@ -10,6 +10,10 @@
   
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $token = get_post('csrf_token');
 
   if(is_valid_csrf_token($token)) {
@@ -34,6 +38,15 @@
       $amount = $value['amount'];
       $price = $value['price'] * $amount;
       $stock = $value['stock'] - $amount;
+
+      $data3 = get_status_buy_item($dbh, $item_id);
+
+      if($data3[0]['status'] === 0) {
+        set_error('[エラー]：' . $value['name'] . 'は現在取り扱っておりません．');
+
+      } else if($stock < 0) {
+        set_error('[エラー]：' . $value['name'] . 'の最大可能購入数は' . $value['stock'] . '個です．');
+      }
 
       $data2 = select_review_buy_item($dbh, $user_id, $item_id);
       insert_history_buy_item($dbh, $user_id, $item_id, $amount, $price, $date, $data2);
@@ -64,7 +77,7 @@
     exit;
   }
 
-  // 商品管理画面テンプレートファイル読み込み
-  include_once './view/buy_item_view.php';
+  // ファイル読込
+  include_once VIEW_PATH . 'buy_item_view.php';
 
 ?>

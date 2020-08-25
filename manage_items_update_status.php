@@ -9,6 +9,10 @@
 
   session_start();
 
+  if((!is_logined()) || (get_session('user_id') !== 'admin')) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $dbh = db_connect();
 
   $user_id = get_session('user_id');
@@ -17,11 +21,10 @@
   $types = get_items_type($dbh);
   $areas = get_items_area($dbh);
 
-  if(!isset($_POST['page'])) {
+  if(!(get_post('page'))) {
     $page = 1;
   } else{
-    $page = $_POST['page'];    
-    var_dump($page);
+    $page = get_post('page');    
   }
 
   $token = get_post('csrf_token');
@@ -31,8 +34,6 @@
     $csrf_token = get_csrf_token();
     
     $update_status = trim($_POST['status'], " ");
-    
-    var_dump($update_status);
     
     $id           = $_POST['id'];
     $date = date('Y-m-d H:i:s');
@@ -70,6 +71,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/manage_items_view.php';
+  include_once VIEW_PATH . 'manage_items_view.php';
 
 ?>

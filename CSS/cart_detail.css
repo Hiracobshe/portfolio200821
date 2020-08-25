@@ -1,63 +1,7 @@
 @import url("./common.css");
 @import url("./common_user.css");
 
-.container_main {
-  margin-top: 16px;
-}
-
-.container_main_top ul {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
+table {
   border: solid 2px #fff;
-  padding: 8px 0;
 }
 
-.container_main_left {
-  text-align: center;
-  flex: 1;
-}
-
-.container_main_left img {
-  width: 80%;
-}
-
-.container_main_right {
-  flex: 2;
-}
-
-.container_main_bottom,
-.row4,
-.row5 {
-  display: flex;
-}
-
-.row1 {
-  margin-top: 16px;
-}
-
-.number,
-.change,
-.total,
-.delete,
-.sum ,
-.buy{
-  flex: 1;
-}
-
-.sum,
-.buy {
-  text-align: center;
-}
-
-.space2,
-.space3,
-.space4,
-.space5,
-.space6 {
-  padding-right: 16px;
-}
-
-.link {
-  margin-top: 16px;
-}

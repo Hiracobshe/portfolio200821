@@ -174,7 +174,7 @@ function delete_cart_buy_item($dbh, $user_id) {
     return execute_query($stmt);      
 
   } catch (Exception $e) {
-    $err_msg[] = $e->getMessage();
+    set_error($e->getMessage());
   } 
 }
 

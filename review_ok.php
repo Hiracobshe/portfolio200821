@@ -10,6 +10,10 @@
   // セッション開始
   session_start();
 
+  if(!is_logined()) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $token = get_post('csrf_token');
 
   if(is_valid_csrf_token($token)) {
@@ -39,7 +43,6 @@
       // トランザクション開始
       $dbh->beginTransaction();
   
-      // レビュー情報の追加
       $item_id = get_post('item_id');
       $date    = date('Y-m-d H:i:s');
 
@@ -48,9 +51,7 @@
         
       $datas = select_sum_review_ok($dbh, $item_id);
       $data2 = select_count_review_ok($dbh, $item_id);
-      
-      var_dump($datas[0]['SUM(point)'], $data2[0]['COUNT(point)']);
-      
+
       $review_point = (float)$datas[0]['SUM(point)'] / (int)$data2[0]['COUNT(point)'];
       update_item_review_ok($dbh, $item_id, $review_point);
 
@@ -87,6 +88,6 @@
   }
 
   // ファイル読込
-  include_once './view/review_ok_view.php';
+  include_once VIEW_PATH . 'review_ok_view.php';
 
 ?>

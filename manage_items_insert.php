@@ -9,6 +9,10 @@
 
   session_start();
 
+  if((!is_logined()) || (get_session('user_id') !== 'admin')) {
+    redirect_to(SESSION_LOGOUT_URL);
+  }
+
   $dbh = db_connect();
 
   $user_id = get_session('user_id');
@@ -40,21 +44,19 @@
 
     if(mb_strlen($name) === 0) {
       set_error('[エラー]：商品名を入力してください');
+    } else if((mb_strlen($name)) > MAX_LENGTH_ITEMNAME) {
+      set_error('[エラー]：商品名は' . MAX_LENGTH_ITEMNAME . '文字以内で入力してください');
     }
 
     if($type === 'default') {
       set_error('[エラー]：種類を選択してください');
     }
 
-    if(mb_strlen($price) === 0) {
-      set_error('[エラー]：価格を入力してください');
-    } else if(!is_positive_integer($price)) {
+    if(!is_positive_integer($price)) {
       set_error('[エラー]：価格を入力してください(0より大きい整数)');
     }
           
-    if(mb_strlen($stock) === 0) {
-      set_error('[エラー]：在庫を入力してください');
-    } else if(!is_positive_integer($stock)) {
+    if(!is_positive_integer($stock)) {
       set_error('[エラー]：在庫を入力してください(0より大きい整数)');
     }
     
@@ -135,6 +137,6 @@
   $dbh = null;
 
   // ファイル読込
-  include_once './view/manage_items_view.php';
+  include_once VIEW_PATH . 'manage_items_view.php';
 
 ?>
