@@ -1,25 +1,24 @@
 <?php
 
   // パス
-  define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '/gotouchi3/model/');
-  define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/gotouchi3/view/');
+  define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '../../gotouchi/model/');
+  define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '../../gotouchi/view/');
   define('CSS_PATH', './CSS/');
   define('ICON_PATH', './icon/');
   define('ITEM_PATH', './image/');
-  define('IMG_DIR', './image/'); // あとで消すこと！
 
   // データベースの接続情報
-  define('DB_HOST', 'mysql');
-  define('DB_NAME', 'codecamp33303');         // MySQLのDB名
-  define('DB_USER', 'codecamp33303');       // MySQLのユーザ名
-  define('DB_PASS', 'codecamp33303');       // MySQLのパスワード
+  define('DB_HOST', 'localhost');
+  define('DB_NAME', 'gotouchi');         // MySQLのDB名
+  define('DB_USER', 'root');       // MySQLのユーザ名
+  define('DB_PASS', 's8pesqEB5');       // MySQLのパスワード
   define('DB_CHARSET', 'SET NAMES utf8mb4');  // MySQLのcharset
   define('DSN', 'mysql:dbname='.DB_NAME.';host=localhost;charset=utf8');  // データベースのDSN情報
-    
+
   define('HTML_CHARACTER_SET', 'UTF-8');      // HTML文字エンコーディング
 
   // リダイレクト先
-  define('LOGIN_URL', 'login.php');  // ログインページ
+  define('LOGIN_URL', 'login.php');
   define('CART_DETAIL_URL', 'cart_detail.php');
   define('ITEMS_LIST_URL', 'items_list.php');
   define('MANAGE_ITEMS_URL', 'manage_items.php');
@@ -27,7 +26,7 @@
   define('REVIEW_EDIT_URL', 'review_edit.php');
   define('BUY_HISTORY_URL', 'buy_history.php');
   define('SESSION_LOGOUT_URL', 'session_logout.php');
-    
+
   // 正規表現
   define('REGEXP_POSITIVE_INTEGER', '<^[1-9][0-9]*$>'); // 正規表現 (1以上の整数値の入力)
   define('REGEXP_POSITIVE_INTEGER_STOCK', '<^[0-9]*$>'); // 正規表現 (0および0以上の整数値の入力)

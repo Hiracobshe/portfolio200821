@@ -81,10 +81,10 @@
         $image = sha1(uniqid(mt_rand(), true)). '.' . $extension;
         
         // 同名ファイルが存在するかどうかチェック
-        if (!is_file(IMG_DIR . $image)) {
+        if (!is_file(ITEM_PATH . $image)) {
 
           // アップロードされたファイルを指定ディレクトリに移動して保存
-          if (!move_uploaded_file($_FILES['insert_image']['tmp_name'], IMG_DIR . $image)) {
+          if (!move_uploaded_file($_FILES['insert_image']['tmp_name'], ITEM_PATH . $image)) {
             set_error('ファイルアップロードに失敗しました');
           }
           
