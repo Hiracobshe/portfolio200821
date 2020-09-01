@@ -15,78 +15,80 @@
     </a>    
     <?php include_once VIEW_PATH . 'templates/header_user_view.php'; ?>
     <div class="container">
-      <h1 class="h3 mb-3 font-weight-normal left">購入内容確認</h1>
-      <?php include_once VIEW_PATH . 'templates/messages.php'; ?>
-      <?php $sum   =    0; ?>
-      <?php foreach($datas as $value) { ?>
-      <div class="row">
-        <div class="col-md-4 order-md-1">
-          <img src="<?php print ITEM_PATH . hsc($value['img']); ?>">
-        </div>
-        <div class="col-md-8 order-md-2 mb-4">
-          <table class="table table-borderless table-dark">
-            <thead>
-              <tr class="table-info">
-                <th colspan="2" scope="col"><?php print hsc($value['name']); ?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>産地</td>
-                <td><?php print $value['area_name']; ?></td>
-              </tr>                
-              <tr>
-                <td>価格</td>
-                <td><?php print $value['price']; ?>円</td>
-              </tr>
-              <tr>
-                <form method="post" enctype="multipart/form-data" action="./cart_detail_change_cart.php">
-                <td>
-                  <input type="text"  name="buy"  value="<?php print $value['amount'];?>"    size="4">個
-                </td>
-                <td>
-                  <input type="submit" value="変更" class="btn btn-primary">  
-                  <input type="hidden" name="data" value="update_cart">
-                  <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
-                  <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">
-                </td>
-                </form>
-              </tr>
-              <tr>
-                <td>
-                  小計
-                </td>
-                <td>
-                  <?php print $value['price'] * $value['amount']; ?>円
-                  <?php $sum += $value['price'] * $value['amount']; ?>
-                </td>
-              </tr>
-              <tr>
-                <form method="post" enctype="multipart/form-data" action="./cart_detail_delete_cart.php">
-                <td colspan="2">
-                  <input type="submit" value="削除" class="btn btn-danger">
-                  <input type="hidden" name="data" value="delete_cart">
-                  <input type="hidden" name="user_id" value="<?php print $value['user_id']; ?>">
-                  <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
-                  <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">
-                </td>
-                </form>
-              </tr>
-            </tbody>
-          </table>            
-        </div>
+    <h1 class="h3 mb-3 font-weight-normal left">購入内容確認</h1>
+    <?php include_once VIEW_PATH . 'templates/messages.php'; ?>
+    <?php $sum   =    0; ?>
+    <?php foreach($datas as $value) { ?>
+    <div class="row">
+      <div class="col-md-4 order-md-1">
+        <img src="<?php print ITEM_PATH . hsc($value['img']); ?>">
       </div>
-      <?php } ?>
-      <form method="post" enctype="multipart/form-data" action="./buy_item.php">        
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <h4>総計：<?php print $sum; ?>円</h4>
+      <div class="col-md-8 order-md-2 mb-4">
+        <table class="table table-borderless table-dark">
+          <thead>
+            <tr class="table-info">
+              <th colspan="2" scope="col"><?php print hsc($value['name']); ?></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>産地</td>
+              <td><?php print $value['area_name']; ?></td>
+            </tr>                
+            <tr>
+              <td>価格</td>
+              <td><?php print $value['price']; ?>円</td>
+            </tr>
+            <tr>
+            <form method="post" enctype="multipart/form-data" action="./cart_detail_change_cart.php">
+              <td>
+                <input type="text"  name="buy"  value="<?php print $value['amount'];?>"    size="4">個
+              </td>
+              <td>
+                <input type="submit" value="変更" class="btn btn-primary">  
+                <input type="hidden" name="data" value="update_cart">
+                <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
+                <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">
+              </td>
+            </form>
+            </tr>
+            <tr>
+              <td>
+                小計
+              </td>
+              <td>
+                <?php print $value['price'] * $value['amount']; ?>円
+                <?php $sum += $value['price'] * $value['amount']; ?>
+              </td>
+            </tr>
+            <tr>
+            <form method="post" enctype="multipart/form-data" action="./cart_detail_delete_cart.php">
+              <td colspan="2">
+                <input type="submit" value="削除" class="btn btn-danger">
+                <input type="hidden" name="data" value="delete_cart">
+                <input type="hidden" name="user_id" value="<?php print $value['user_id']; ?>">
+                <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
+                <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">
+              </td>
+            </form>
+            </tr>
+          </tbody>
+        </table>            
+          </div>
         </div>
-        <div class="col-md-6 mb-3">
-          <input type="submit" value="購入" class="btn btn-primary">
-          <input type="hidden" name="data" value="buy_item">
-          <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">            
-        </div>     
+        <?php } ?>
+        <form method="post" enctype="multipart/form-data" action="./buy_item.php">        
+        <div class="row">
+        <?php if($sum > 0) { ?>
+          <div class="col-md-6 mb-3">
+            <h4>総計：<?php print $sum; ?>円</h4>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="submit" value="購入" class="btn btn-primary">
+            <input type="hidden" name="data" value="buy_item">
+            <input type="hidden" name="csrf_token" value="<?php print $csrf_token; ?>">            
+          </div>     
+        <?php } ?>
       </div>
       </form>
     </div>
