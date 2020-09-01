@@ -39,7 +39,8 @@ function get_cart_cart_detail($dbh, $user_id, $item_id) {
       
     $sql = 'SELECT carts.id,
                    carts.amount,
-                   items.stock
+                   items.stock,
+                   items.name
             FROM   carts
             INNER JOIN items
             ON carts.item_id = items.id
