@@ -34,7 +34,7 @@
   
       if($buy === '') {
   
-        if($buy < $datas[0]['stock']) {
+        if((int)$datas[0]['amount'] < $datas[0]['stock']) {
           // 購入数を1プラス
           $amount = (int)$datas[0]['amount'] + 1;
   
@@ -45,10 +45,22 @@
         
       } else {
         $amount = $buy;
+        
+        if(!is_positive_integer($amount)) {
+          set_error('[エラー]：在庫数を入力してください(0より大きい整数)');
+        }
+        
+        if($buy > $datas[0]['stock']) {
+          set_error('[エラー]：' . $datas[0]['name'] . 'の最大購入可能数は' . $datas[0]['stock'] . 'です．');
+        }
+
       }
 
-      update_cart_cart_detail($dbh, $amount, $user_id, $item_id);
-      set_message('[OK]：商品を更新しました．');
+      if(!has_error()) {
+        
+        update_cart_cart_detail($dbh, $amount, $user_id, $item_id);
+        set_message('[OK]：商品を更新しました．');
+      }
 
     } else {
       insert_cart_cart_detail($dbh, $user_id, $item_id, $date);
